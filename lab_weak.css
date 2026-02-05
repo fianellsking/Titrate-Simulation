@@ -1,0 +1,469 @@
+:root {
+    --primary: #27ae60;
+    --primary-dark: #219150;
+    --danger: #e74c3c;
+    --main-blue: #2980b9;
+    --dark: #2c3e50;
+    --bg: #e3f2fd; /* สีพื้นหลังหน้าเว็บ */
+}
+
+/* พื้นฐานหน้าเว็บ */
+body {
+    font-family: 'Sarabun', sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    color: var(--dark);
+    line-height: 1.5;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: clamp(1.5rem, 4vw, 2.2rem);
+    margin-bottom: 10px;
+}
+
+/* ระบบ Grid ที่ยืดหยุ่น */
+/* จัดการ Grid ให้สมดุล */
+.main-grid {
+    display: grid;
+    /* ล็อคคอลัมน์ซ้าย-ขวาไว้ที่ 320px ส่วนตรงกลางขยายอิสระ (1fr) */
+    grid-template-columns: 320px 1fr 320px; 
+    gap: 30px;
+    align-items: start;
+    max-width: 1400px; /* จำกัดความกว้างรวมไม่ให้บานปลายในจอ Ultra-wide */
+    margin: 0 auto;    /* จัดกึ่งกลางหน้าจอ */
+    padding: 20px;
+}
+
+/* ปรับส่วนจำลองการทดลอง (ตรงกลาง) */
+.sim-area {
+    background: #ffffff;
+    border-radius: 25px;
+    height: 650px; /* เพิ่มความสูงให้ดูโปร่งขึ้น */
+    position: relative;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+}
+
+/* ปรับสเกลอุปกรณ์ให้ดูใหญ่และชัดเจน */
+.apparatus-box {
+    position: relative;
+    width: 400px; /* เพิ่มพื้นที่ทำงานภายใน */
+    height: 100%;
+    transform: scale(1.1); /* ขยายขนาดอุปกรณ์ขึ้นเล็กน้อย */
+    transform-origin: center center;
+}
+
+/* Media Query สำหรับหน้าจอ Tablet (จอเล็กลง) */
+@media (max-width: 1100px) {
+    .main-grid {
+        /* ยุบคอลัมน์ขวาลงไปข้างล่าง เหลือ 2 คอลัมน์ หรือปรับตามความเหมาะสม */
+        grid-template-columns: 300px 1fr;
+    }
+}
+
+/* Media Query สำหรับมือถือ (จอแนวตั้ง) */
+@media (max-width: 768px) {
+    .main-grid {
+        grid-template-columns: 1fr; /* แถวเดียวเรียงกันลงมา */
+        gap: 15px;
+    }
+    
+    .sim-area {
+        height: 500px;
+        order: -1; /* เอาเครื่องมือไว้บนสุดเสมอ */
+    }
+
+    .apparatus-box {
+        transform: scale(0.8); /* ย่อลงเพื่อให้เห็นครบในจอมือถือ */
+    }
+}
+
+/* การตกแต่งการ์ด (แผงควบคุม) */
+.card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+}
+
+h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+    color: var(--main-blue);
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+}
+
+.field-group {
+    margin-bottom: 15px;
+}
+
+.field-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* ส่วนของ Input และ Select */
+input, select {
+    width: 100%;
+    padding: 10px;
+    border: 1.5px solid #dcdde1;
+    border-radius: 8px;
+    font-family: inherit;
+    box-sizing: border-box; /* ป้องกัน Input ล้นกรอบ */
+}
+
+.short-input {
+    width: 120px;
+    text-align: center;
+    font-weight: bold;
+    color: var(--main-blue);
+}
+
+.full-width-select {
+    width: 100% !important;
+}
+
+.large-select {
+    border: 2px solid var(--main-blue) !important;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* กราฟิกเครื่องมือจำลอง */
+.sim-area {
+    background: #ffffff;
+    border-radius: 20px;
+    min-height: 600px;
+    position: relative;
+    border: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: center;
+    /* สั่งให้เครื่องมืออยู่บนสุดเมื่อเปิดในมือถือ */
+    order: 0;
+}
+
+/* การจัดการตำแหน่งอุปกรณ์ไทเทรต */
+.apparatus-box {
+    position: relative;
+    width: 300px;
+    height: 100%;
+}
+
+.stand-base {
+    position: absolute;
+    bottom: 20px;
+    width: 220px;
+    left: 40px;
+    height: 12px;
+    background: #7f8c8d;
+    border-radius: 4px;
+}
+
+.stand-rod {
+    position: absolute;
+    bottom: 32px;
+    left: 147px;
+    width: 6px;
+    height: 500px;
+    background: #bdc3c7;
+}
+
+.burette-tube {
+    width: 18px;
+    height: 350px;
+    border: 2px solid #333;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    background: rgba(255, 255, 255, 0.4);
+    z-index: 5;
+}
+
+.liq-b {
+    width: 100%;
+    background: #b3e5fc;
+    position: absolute;
+    bottom: 0;
+    height: 90%;
+    transition: height 0.1s linear;
+}
+
+.stopcock {
+    width: 30px;
+    height: 10px;
+    background: #2c3e50;
+    position: absolute;
+    top: 390px;
+    left: 135px;
+    border-radius: 2px;
+}
+
+.tip {
+    width: 4px;
+    height: 20px;
+    background: #333;
+    position: absolute;
+    top: 400px;
+    left: 147px;
+}
+
+/* อนิเมชั่นหยดสาร */
+.drop-particle {
+    width: 4px;
+    height: 10px;
+    background: #3498db;
+    border-radius: 50%;
+    position: absolute;
+    top: 420px;
+    left: 147px;
+    opacity: 0;
+}
+
+@keyframes fall {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 1; transform: translateY(115px); }
+}
+
+.is-dropping {
+    animation: fall 0.3s linear infinite;
+}
+
+/* ขวดรูปชมพู่และการแกว่ง */
+.flask-shape {
+    width: 120px;
+    height: 160px;
+    border: 2.5px solid #333;
+    clip-path: polygon(35% 0, 65% 0, 100% 100%, 0 100%);
+    background: rgba(255, 255, 255, 0.4);
+    position: absolute;
+    bottom: 32px;
+    left: 90px;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+}
+
+@keyframes swirl {
+    0% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-4px) rotate(-1deg); }
+    75% { transform: translateX(4px) rotate(1deg); }
+    100% { transform: translateX(0) rotate(0deg); }
+}
+
+.is-mixing {
+    animation: swirl 0.4s ease-in-out infinite;
+}
+
+.liq-f {
+    width: 100%;
+    height: 40%;
+    position: absolute;
+    bottom: 0;
+    background: rgba(225, 240, 255, 0.7);
+    transition: background 0.3s ease;
+}
+
+/* ปุ่มควบคุม */
+/* --- ส่วนปรับปรุงปุ่ม (Buttons) --- */
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px; /* ปรับให้โค้งมนดูทันสมัย */
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+/* ปุ่มหยดสาร (Action) */
+.btn-action {
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+    filter: brightness(1.05);
+}
+
+.btn-action:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(39, 174, 96, 0.2);
+}
+
+/* ปุ่มสุ่มใหม่/เริ่มใหม่ (Reset) */
+.btn-reset {
+    background: #ffffff;
+    color: var(--danger);
+    border: 2px solid var(--danger);
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.1);
+}
+
+.btn-reset:hover {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 6px 15px rgba(231, 76, 60, 0.3);
+}
+
+/* ปุ่มย้อนกลับ (Back) */
+.back-btn {
+    background: #f8fafc;
+    color: #64748b;
+    border: 1.5px solid #e2e8f0;
+    margin-top: 10px; /* เว้นระยะห่างจากปุ่มด้านบน */
+}
+
+.back-btn:hover {
+    background: #f1f5f9;
+    color: var(--dark);
+    border-color: #cbd5e1;
+}
+
+/* เอฟเฟกต์เมื่อกดค้างที่ปุ่มหยดสาร (Visual Feedback) */
+#titrate-btn:active {
+    background: linear-gradient(135deg, #219150 0%, #27ae60 100%);
+    transform: scale(0.98);
+}
+
+/* --- ส่วนเสริมเพิ่มเติมเพื่อความเป๊ะ --- */
+
+/* การปรับแต่งกรอบเฉลย (Reveal Box) */
+.reveal-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    padding: 5px 12px;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.conc-hidden {
+    background: #e2e8f0 !important;
+    color: transparent !important;
+    user-select: none;
+    border: none !important;
+    width: 80px !important;
+}
+
+.conc-visible {
+    background: white !important;
+    color: var(--dark) !important;
+    font-weight: bold;
+    width: 80px !important;
+}
+
+/* ส่วนแสดงค่าสถานะ */
+.value-display {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--dark);
+    margin-top: 5px;
+}
+
+.highlight {
+    color: var(--main-blue);
+}
+
+/* Media Query สำหรับหน้าจอเล็กพิเศษ (มือถือ) */
+@media (max-width: 600px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+    .sim-area {
+        min-height: 500px;
+        /* เลื่อนกราฟิกขึ้นไปบนสุด */
+        order: -1; 
+    }
+    .apparatus-box {
+        /* ย่อขนาดอุปกรณ์ลงเล็กน้อยเพื่อให้พอดีจอมือถือ */
+        transform: scale(0.85);
+        transform-origin: center center;
+    }
+}
+
+/* --- ส่วนที่แก้ไข: กรอบแสดงสถานะดิจิทัล --- */
+.status-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e0e0e0;
+}
+
+.stat-group {
+    margin-bottom: 20px;
+}
+
+.stat-group label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--dark);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.digital-screen {
+    background: #1e272e; /* สีพื้นหลังจอ */
+    border-radius: 12px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    border: 2px solid #34495e;
+}
+
+.digital-screen span {
+    font-family: 'Courier New', Courier, monospace; /* ฟอนต์แบบดิจิทัล */
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#disp-vol {
+    color: #0be881; /* สีเขียวสำหรับปริมาตร */
+    text-shadow: 0 0 10px rgba(11, 232, 129, 0.5);
+}
+
+#disp-ph {
+    color: #ffdd59; /* สีเหลืองทองสำหรับ pH */
+    text-shadow: 0 0 10px rgba(255, 221, 89, 0.5);
+}
+
+.unit-label {
+    color: #0be881;
+    margin-left: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
