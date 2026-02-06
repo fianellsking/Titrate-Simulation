@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Strong Acid-Base Titration Lab</title>
+    <title>Strong Acid - Weak Base Titration Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="lab_strong.css">
+    <link rel="stylesheet" href="lab_weak_base.css">
 </head>
 <body>
 
     <div class="app-container">
         <header>
-            <h1>ระบบจำลองการไตเตรต (Strong Acid - Strong Base)</h1>
+            <h1>การไตเตรตกรดแก่ด้วยเบสอ่อน (Strong Acid - Weak Base)</h1>
             <p>จงหาความเข้มข้นของกรดแก่ในขวดรูปชมพู่ โดยใช้การคำนวณ aC<sub>a</sub>V<sub>a</sub> = bC<sub>b</sub>V<sub>b</sub></p>
         </header>
 
         <div class="main-grid">
             <aside>
                 <div class="card">
-                    <h3>🧪 บิวเรต (Strong Base)</h3>
+                    <h3>🧪 บิวเรต (Weak Base)</h3>
                     <div class="field-group">
-                        <label>เบสแก่ (Titrant)</label>
-                        <select id="baseType" class="full-width-select">
-                            <option value="NaOH">NaOH (โซเดียมไฮดรอกไซด์)</option>
-                            <option value="KOH">KOH (โพแทสเซียมไฮดรอกไซด์)</option>
+                        <label>เบสอ่อน (Titrant)</label>
+                        <select id="baseType">
+                            <option value="NH3">NH3 (แอมโมเนีย) [Kb=1.8e-5]</option>
+                            <option value="CH3NH2">Methylamine [Kb=4.4e-4]</option>
                         </select>
                     </div>
                     <div class="field-group">
@@ -36,9 +36,9 @@
                     <h3>🍶 ขวดรูปชมพู่ (Strong Acid)</h3>
                     <div class="field-group">
                         <label>กรดแก่ (Analyte)</label>
-                        <select id="acidType" class="full-width-select">
+                        <select id="acidType">
                             <option value="HCl">HCl (ไฮโดรคลอริก)</option>
-                            <option value="HNO3">HNO<sub>3</sub> (ไนตริก)</option>
+                            <option value="HNO3">HNO3 (ไนตริก)</option>
                         </select>
                     </div>
                     <div class="field-group">
@@ -108,6 +108,7 @@
 </aside>
         </div>
     </div>
-    <script src="lab_strong.js"></script>
+
+    <script src="lab_weak_base.js"></script>
 </body>
 </html>

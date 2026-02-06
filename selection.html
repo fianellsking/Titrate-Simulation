@@ -3,46 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>เลือกการทดลอง - Titration Simulation</title>
-    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Titration Learning - Selection</title>
     <link rel="stylesheet" href="selection.css">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="overlay"></div>
-    
-    <div class="container">
-        <header class="selection-header">
-            <h1>เลือก <span class="highlight">บทปฏิบัติการ</span></h1>
-            <p>เลือกหัวข้อที่คุณต้องการเรียนรู้เพื่อเริ่มการจำลอง</p>
-        </header>
+    <div class="selection-container">
+        <h1>🔬 ระบบจำลองการไตเตรตเสมือนจริง</h1>
+        <p>เลือกหัวข้อการทดลองที่คุณต้องการศึกษา</p>
         
-        <div class="selection-grid">
-            <div class="selection-card" onclick="window.location.href = 'lab_strong.html'">
-                <div class="card-badge">พื้นฐาน</div>
-                <div class="icon-box">🧪</div>
-                <h2>กรดแก่ + เบสแก่</h2>
-                <div class="description">
-                    <p>ศึกษาการไทเทรตระหว่าง <strong>HCl</strong> และ <strong>NaOH</strong></p>
-                    <span class="info-tag">จุดยุติ pH ≈ 7</span>
-                </div>
-                <button class="select-btn">เริ่มต้นทดลอง</button>
+        <div class="grid-menu">
+            <div class="card" onclick="location.href='lab_strong.html'">
+                <div class="icon">🧪</div>
+                <h3>Strong Acid + Strong Base</h3>
+                <p>กรดแก่ - เบสแก่</p>
+            </div>
+            
+            <div class="card" onclick="location.href='lab_weak_base.html'">
+                <div class="icon">🍶</div>
+                <h3>Strong Acid + Weak Base</h3>
+                <p>กรดแก่ - เบสอ่อน</p>
             </div>
 
-            <div class="selection-card" onclick="window.location.href = 'lab_weak.html'">
-                <div class="card-badge">ขั้นสูง</div>
-                <div class="icon-box">💧</div>
-                <h2>กรดแก่ + เบสอ่อน</h2>
-                <div class="description">
-                    <p>ศึกษาการไทเทรตระหว่าง <strong>HCl</strong> และ <strong>NH₃</strong></p>
-                    <span class="info-tag">จุดยุติ pH < 7</span>
-                </div>
-                <button class="select-btn">เริ่มต้นทดลอง</button>
+            <div class="card" onclick="location.href='lab_strong_base.html'">
+                <div class="icon">⚗️</div>
+                <h3>Strong Base + Weak Acid</h3>
+                <p>กรดอ่อน - เบสแก่</p>
             </div>
-        </div>
 
-        <button class="back-btn" onclick="window.location.href = 'home.html'">
-            <span>←</span> ย้อนกลับไปหน้าหลัก
-        </button>
+            <div class="knowledge-section">
+    <h3>📚 คลังความรู้เพิ่มเติม</h3>
+    <div class="knowledge-btns">
+        <button id="btn-graph">📈 เปิดกราฟ</button>
+        <button id="btn-slide">📄 สไลด์เนื้อหา</button>
+        <button id="btn-quiz">📝 ไฟล์ข้อสอบ</button>
+        <button id="btn-key">🔑 ไฟล์เฉลย</button>
     </div>
+</div>
+
+<button class="btn back-btn" style="width: 200px; margin-left: 0;" onclick="window.history.back()">ย้อนกลับ</button>
+        </div>
+    </div>
+    <script src="selection.js"></script>
 </body>
 </html>

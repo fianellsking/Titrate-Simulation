@@ -4,169 +4,106 @@ body {
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    font-family: 'Sarabun', sans-serif;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
-    font-family: 'Sarabun', sans-serif;
 }
-
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1;
-}
-
-.container {
-    position: relative;
-    z-index: 2;
-    width: 90%;
-    max-width: 1000px;
-    padding: 40px 20px;
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(15px);
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-    margin: 20px;
-}
-
-.selection-header {
-    margin-bottom: 40px;
-    text-align: center;
-}
-
-h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    color: #2c3e50;
-    margin: 0;
-}
-
-.highlight {
-    color: #455EB5;
-}
-
-.selection-header p {
-    font-size: 1.1rem;
-    color: #64748b;
-    margin-top: 10px;
-}
-
-/* Grid Layout */
-.selection-grid {
-    display: grid;
-    /* แบ่ง 2 คอลัมน์ ถ้าจอเล็กกว่า 700px จะยุบเหลือ 1 คอลัมน์ */
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    width: 100%;
-    max-width: 800px;
-}
-
-/* Card Styling */
-.selection-card {
+.selection-container {
     background: white;
+    padding: 40px;
     border-radius: 30px;
-    padding: 40px 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
     text-align: center;
-    position: relative;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    cursor: pointer;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    max-width: 900px;
+    width: 90%;
 }
-
-.selection-card:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 20px 40px rgba(69, 94, 181, 0.2);
-    background: #ffffff;
+h1 { color: #2c3e50; margin-bottom: 10px; }
+.grid-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+    position: relative; /* สำหรับจัดวางองค์ประกอบภายใน */
 }
-
-.card-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #f1f5f9;
-    padding: 5px 15px;
+.card {
+    background: #fff;
+    border: 2px solid #edf2f7;
+    padding: 25px;
     border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #455EB5;
-}
-
-.icon-box {
-    font-size: 80px;
-    margin-bottom: 20px;
-    filter: drop-shadow(0 10px 10px rgba(0,0,0,0.1));
-}
-
-h2 {
-    color: #1e293b;
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-}
-
-.description p {
-    color: #64748b;
-    font-size: 1rem;
-    margin-bottom: 10px;
-}
-
-.info-tag {
-    display: inline-block;
-    padding: 6px 12px;
-    background: #eff6ff;
-    color: #3b82f6;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    font-weight: 600;
-    margin-bottom: 25px;
-}
-
-/* ปุ่มภายใน Card */
-.select-btn {
-    width: 100%;
-    padding: 15px;
-    background: #455EB5;
-    background-image: linear-gradient(135deg, #455EB5 0%, #673FD7 100%);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    font-size: 1.1rem;
-    font-weight: 600;
     cursor: pointer;
-    transition: 0.3s;
+    transition: all 0.3s ease;
 }
-
-.selection-card:hover .select-btn {
-    filter: brightness(1.1);
-    box-shadow: 0 5px 15px rgba(69, 94, 181, 0.4);
+.card:hover {
+    border-color: #3498db;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
 }
-
-/* ปุ่มย้อนกลับ */
-.back-btn {
-    margin-top: 50px;
-    background: transparent;
-    border: none;
-    color: #64748b;
-    font-size: 1.1rem;
-    cursor: pointer;
+.icon { font-size: 3rem; margin-bottom: 15px; }
+.knowledge-section {
+    grid-column: 1 / -1;
+    background: #fffdf0;
+    padding: 25px;
+    border-radius: 20px;
+    border: 2px dashed #f1c40f;
+}
+.knowledge-btns {
     display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* เพิ่มระยะห่างระหว่างปุ่มเล็กน้อย */
+    justify-content: space-between; /* กระจายปุ่มให้ชิดซ้าย-ขวาพอดีๆ */
+    margin-top: 20px;
+}
+
+.knowledge-btns button {
+    flex: 1 1 200px; /* ขยายให้ปุ่มกว้างเท่าๆ กัน และขยับตามขนาดหน้าจอ */
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap; /* ป้องกันข้อความตัดบรรทัด */
+}
+.knowledge-btns button:hover {
+    border-color: #3498db;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
+}
+
+.btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
     align-items: center;
     gap: 10px;
-    transition: 0.3s;
+    box-sizing: border-box;
+}
+
+.back-btn {
+    grid-column: 1 / -1; /* ให้ครองพื้นที่แถวนั้นทั้งหมดเพื่อจัดตำแหน่ง */
+    width: 180px;
+    margin-left: auto; /* ดันไปทางขวาสุด */
+    margin-right: 0;
+    background: #f8fafc;
+    color: #64748b;
+    border: 1.5px solid #e2e8f0;
 }
 
 .back-btn:hover {
-    color: #455EB5;
-    transform: translateX(-5px);
+    background: #f1f5f9;
+    color: var(--dark);
+    border-color: #cbd5e1;
 }

@@ -32,23 +32,58 @@ function getPH(vBase) {
 
 function updateColor(ph) {
     const indicator = document.getElementById('indicatorType').value;
-    const flaskLiq = document.getElementById('liquid-flask');
-    
+    const flask = document.getElementById('liquid-flask');
+    let color = "";
+
     if (indicator === 'phenolphthalein') {
-        if (ph <= 8.3) flaskLiq.style.background = "rgba(225, 240, 255, 0.7)";
-        else {
-            const intensity = Math.min((ph - 8.3) / 1.7, 1);
-            flaskLiq.style.background = `rgba(255, 20, 147, ${0.4 + (intensity * 0.5)})`; 
+        // ช่วงเปลี่ยนสี: 8.3 (ใสแบบมีมิติ) - 10.0 (ชมพูม่วง)
+        if (ph <= 8.3) {
+            // สี "ใส" ที่ไม่ใช่แค่โปร่งใส แต่คือสีน้ำในขวดแก้ว (ฟ้าจางมากๆ)
+            color = "rgba(235, 245, 255, 0.4)"; 
+        } else if (ph >= 10.0) {
+            color = "rgba(255, 0, 128, 0.8)"; // ชมพูบานเย็นเข้ม
+        } else {
+            let t = (ph - 8.3) / (10.0 - 8.3);
+            // ไล่จาก ฟ้าอ่อน -> ชมพู
+            let r = Math.round(235 + (20 * t)); // 235 -> 255
+            let g = Math.round(245 * (1 - t));   // 245 -> 0
+            let b = Math.round(255 - (127 * t)); // 255 -> 128
+            let alpha = 0.4 + (0.4 * t);        // ค่อยๆ ทึบขึ้น
+            color = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         }
-    } else if (indicator === 'bromothymolBlue') {
-        if (ph < 6.0) flaskLiq.style.background = "rgba(255, 255, 0, 0.6)";
-        else if (ph <= 7.6) flaskLiq.style.background = "rgba(0, 255, 0, 0.6)";
-        else flaskLiq.style.background = "rgba(0, 0, 255, 0.6)";
-    } else if (indicator === 'methylRed') {
-        if (ph < 4.4) flaskLiq.style.background = "rgba(255, 0, 0, 0.6)";
-        else if (ph <= 6.2) flaskLiq.style.background = "rgba(255, 165, 0, 0.6)";
-        else flaskLiq.style.background = "rgba(255, 255, 0, 0.6)";
+    } 
+    
+    else if (indicator === 'bromothymolBlue') {
+        // ช่วงเปลี่ยนสี: 6.0 (เหลือง) - 7.6 (น้ำเงิน)
+        if (ph <= 6.0) {
+            color = "rgba(255, 230, 0, 0.7)"; 
+        } else if (ph >= 7.6) {
+            color = "rgba(0, 80, 255, 0.8)";
+        } else {
+            let t = (ph - 6.0) / (7.6 - 6.0);
+            let r = Math.round(255 * (1 - t));
+            let g = Math.round(230 - (150 * t)); 
+            let b = Math.round(255 * t);
+            color = `rgba(${r}, ${g}, ${b}, 0.75)`;
+        }
+    } 
+    
+    else if (indicator === 'methylRed') {
+        // ช่วงเปลี่ยนสี: 4.2 (แดง) - 6.2 (เหลือง)
+        if (ph <= 4.2) {
+            color = "rgba(255, 0, 0, 0.8)";
+        } else if (ph >= 6.2) {
+            color = "rgba(255, 215, 0, 0.7)";
+        } else {
+            let t = (ph - 4.2) / (6.2 - 4.2);
+            let g = Math.round(215 * t);
+            color = `rgba(255, ${g}, 0, 0.75)`;
+        }
     }
+
+    flask.style.background = color;
+    // เพิ่มเอฟเฟกต์ Gradient เล็กน้อยให้น้ำดูไม่แบน
+    flask.style.backgroundImage = `linear-gradient(to bottom, rgba(255,255,255,0.2) 0%, transparent 100%)`;
 }
 
 function step() {
