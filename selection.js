@@ -4,16 +4,16 @@ function handleKnowledgeClick(type) {
 
     switch(type) {
         case 'graph':
-            target = "titration_graphs.png"; 
+            target = "https://docs.google.com/presentation/d/1KY0wHXH3Xm3h_q7BQGl0h3Ol4Rznsp3X/edit?usp=sharing&ouid=107910151210472270851&rtpof=true&sd=true"; 
             break;
         case 'slide':
-            target = "https://link-to-your-google-drive-pdf.com"; 
+            target = "https://docs.google.com/presentation/d/1tQtwmSvNjQ-8ZVHMurrU53AT5cq7W0zV/edit?usp=sharing&ouid=107910151210472270851&rtpof=true&sd=true"; 
             break;
         case 'quiz':
-            target = "exercise_sheet.pdf";
+            target = "https://drive.google.com/file/d/14EXfzcaC77qOm1W8xbFRyOTXa80gVrHj/view?usp=sharing";
             break;
         case 'key':
-            target = "answer_key.pdf";
+            target = "https://drive.google.com/file/d/1Ocso1OKhlBArWI29nfc8CjEfxgNXL6q3/view?usp=sharing";
             break;
     }
 

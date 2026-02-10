@@ -2,8 +2,8 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Strong Acid - Weak Base Titration Lab</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weak Base - Strong Acid Lab</title>
     <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="lab_weak_base.css">
 </head>
@@ -11,44 +11,42 @@
 
     <div class="app-container">
         <header>
-            <h1>การไตเตรตกรดแก่ด้วยเบสอ่อน (Strong Acid - Weak Base)</h1>
-            <p>จงหาความเข้มข้นของกรดแก่ในขวดรูปชมพู่ โดยใช้การคำนวณ aC<sub>a</sub>V<sub>a</sub> = bC<sub>b</sub>V<sub>b</sub></p>
+            <h1>การไทเตรตเบสอ่อนด้วยกรดแก่ (Weak Base - Strong Acid)</h1>
+            <p>จงหาความเข้มข้นของเบสอ่อน โดยใช้สูตร aC<sub>a</sub>V<sub>a</sub> = bC<sub>b</sub>V<sub>b</sub></p></p>
         </header>
 
         <div class="main-grid">
             <aside>
                 <div class="card">
-                    <h3>🧪 บิวเรต (Weak Base)</h3>
+                    <h3>🧪 บิวเรต (Strong Acid)</h3>
                     <div class="field-group">
-                        <label>เบสอ่อน (Titrant)</label>
-                        <select id="baseType">
-                            <option value="NH3">NH3 (แอมโมเนีย) [Kb=1.8e-5]</option>
-                            <option value="CH3NH2">Methylamine [Kb=4.4e-4]</option>
+                        <label>กรดแก่ (Titrant)</label>
+                        <select id="acidType">
+                            <option value="HCl">HCl (ไฮโดรคลอริก)</option>
                         </select>
                     </div>
                     <div class="field-group">
-                        <label>ความเข้มข้นเบส (C<sub>b</sub>) (M)</label>
-                        <input type="number" id="baseConc" value="0.100" step="0.001" class="short-input">
+                        <label>ความเข้มข้นกรด C<sub>a</sub> (M)</label>
+                        <input type="number" id="acidConc" value="0.100" step="0.001" class="short-input">
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3>🍶 ขวดรูปชมพู่ (Strong Acid)</h3>
+                    <h3>🍶 ขวดรูปชมพู่ (Weak Base)</h3>
                     <div class="field-group">
-                        <label>กรดแก่ (Analyte)</label>
-                        <select id="acidType">
-                            <option value="HCl">HCl (ไฮโดรคลอริก)</option>
-                            <option value="HNO3">HNO3 (ไนตริก)</option>
+                        <label>เบสอ่อน (Analyte)</label>
+                        <select id="baseType">
+                            <option value="NH3">NH₃ (แอมโมเนีย)</option>
                         </select>
                     </div>
                     <div class="field-group">
-                        <label>ปริมาตรกรด (V<sub>a</sub>) (mL)</label>
-                        <input type="number" id="acidVol" value="10.00" step="0.1" class="short-input">
+                        <label>ปริมาตรเบส V<sub>b</sub> (mL)</label>
+                        <input type="number" id="baseVol" value="10.00" step="0.1" class="short-input">
                     </div>
                     <div class="field-group">
-                        <label>ความเข้มข้นกรด (C<sub>a</sub>) (M)</label>
+                        <label>ความเข้มข้นเบส C<sub>b</sub> (M)</label>
                         <div class="reveal-box">
-                            <input type="text" id="acidConcDisp" value="???" readonly class="conc-hidden">
+                            <input type="text" id="baseConcDisp" value="???" readonly class="conc-hidden">
                             <input type="checkbox" id="showConc">
                             <small>เฉลย</small>
                         </div>
@@ -74,38 +72,37 @@
             </main>
 
             <aside>
-    <div class="card">
-        <h3>🌈 เลือกอินดิเคเตอร์</h3>
-        <select id="indicatorType" class="large-select full-width-select">
-            <option value="phenolphthalein">ฟีนอล์ฟทาลีน (ใส ⇌ ชมพู)</option>
-            <option value="bromothymolBlue">โบรโมไทมอลบลู (เหลือง ⇌ ฟ้า)</option>
-            <option value="methylRed">เมทิลเรด (แดง ⇌ เหลือง)</option>
-        </select>
-    </div>
+                <div class="card">
+                    <h3>🌈 เลือกอินดิเคเตอร์</h3>
+                    <select id="indicatorType" class="large-select full-width-select">
+                        <option value="methylRed">เมทิลเรด (เหลือง ⇌ แดง)</option>
+                        <option value="bromothymolBlue">โบรโมไทมอลบลู (ฟ้า ⇌ เหลือง)</option>
+                        <option value="phenolphthalein">ฟีนอล์ฟทาลีน (ชมพู ⇌ ไม่มีสี)</option>
+                    </select>
+                </div>
 
-    <div class="card status-card">
-        <h3>📊 ผลการทดลอง</h3>
-        
-        <div class="stat-group">
-            <label>ปริมาตรเบสที่ใช้ (V<sub>b</sub>):</label>
-            <div class="digital-screen">
-                <span id="disp-vol">0.000</span>
-                <span class="unit-label">mL</span>
-            </div>
-        </div>
+                <div class="card status-card">
+                    <h3>📊 ผลการทดลอง</h3>
+                    <div class="stat-group">
+                        <label>ปริมาตรกรดที่ใช้ V<sub>a</sub>: </label>
+                        <div class="digital-screen">
+                            <span id="disp-vol">0.000</span>
+                            <span class="unit-label">mL</span>
+                        </div>
+                    </div>
 
-        <div class="stat-group">
-            <label>ค่า pH ปัจจุบัน:</label>
-            <div class="digital-screen">
-                <span id="disp-ph">1.00</span>
-            </div>
-        </div>
-    </div>
+                    <div class="stat-group">
+                        <label>ค่า pH ปัจจุบัน:</label>
+                        <div class="digital-screen">
+                            <span id="disp-ph">11.13</span>
+                        </div>
+                    </div>
+                </div>
 
-    <button id="titrate-btn" class="btn btn-action">กดค้างเพื่อหยดสาร</button>
-    <button id="reset-btn" class="btn btn-reset">สุ่มใหม่ / เริ่มใหม่</button>
-    <button class="btn back-btn" onclick="window.history.back()">ย้อนกลับ</button>
-</aside>
+                <button id="titrate-btn" class="btn btn-action">กดค้างเพื่อหยดสาร</button>
+                <button id="reset-btn" class="btn btn-reset">สุ่มใหม่ / เริ่มใหม่</button>
+                <button class="btn back-btn" onclick="window.history.back()">ย้อนกลับ</button>
+            </aside>
         </div>
     </div>
 

@@ -93,9 +93,9 @@ h1 { color: #2c3e50; margin-bottom: 10px; }
 }
 
 .back-btn {
-    grid-column: 1 / -1; /* ให้ครองพื้นที่แถวนั้นทั้งหมดเพื่อจัดตำแหน่ง */
+    grid-column: 1 / -1;
     width: 180px;
-    margin-left: auto; /* ดันไปทางขวาสุด */
+    margin-left: auto;
     margin-right: 0;
     background: #f8fafc;
     color: #64748b;

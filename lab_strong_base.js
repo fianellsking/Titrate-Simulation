@@ -68,26 +68,21 @@ function updateColor(ph) {
     const flask = document.getElementById('liquid-flask');
     let color = "";
 
-    // Phenolphthalein จะเหมาะมากกับการไตเตรตนี้เพราะจุดสมมูล pH > 7
     if (indicator === 'phenolphthalein') {
-        if (ph <= 8.2) {
-            color = "linear-gradient(to top, rgba(220, 235, 255, 0.4), rgba(255, 255, 255, 0.1))";
-        } else if (ph >= 10.0) {
-            color = "rgba(255, 20, 147, 0.7)";
-        } else {
-            let t = (ph - 8.2) / (10.0 - 8.2);
-            color = `rgba(255, ${Math.round(20 + 180*(1-t))}, ${Math.round(147 + 100*(1-t))}, ${0.3 + (0.4*t)})`;
+        if (ph <= 8.3) color = "rgb(204, 239, 255)";
+        else if (ph >= 10.0) color = "rgba(255, 0, 128, 0.8)";
+        else {
+            let t = (ph - 8.3) / (10.0 - 8.3);
+            color = `rgba(${Math.round(235 + 20*t)}, ${Math.round(245*(1-t))}, ${Math.round(255 - 127*t)}, ${0.4 + 0.4*t})`;
         }
-    } 
-    else if (indicator === 'bromothymolBlue') {
-        if (ph <= 6.0) color = "rgba(255, 255, 0, 0.7)"; // เหลือง
-        else if (ph >= 7.6) color = "rgba(0, 0, 255, 0.7)"; // น้ำเงิน
+    } else if (indicator === 'bromothymolBlue') {
+        if (ph <= 6.0) color = "rgba(255, 230, 0, 0.7)";
+        else if (ph >= 7.6) color = "rgba(0, 80, 255, 0.8)";
         else {
             let t = (ph - 6.0) / (7.6 - 6.0);
-            color = `rgba(${Math.round(255*(1-t))}, 255, ${Math.round(255*t)}, 0.7)`;
+            color = `rgba(${Math.round(255*(1-t))}, ${Math.round(230-150*t)}, ${Math.round(255*t)}, 0.75)`;
         }
-    }
-    else if (indicator === 'methylRed') {
+    } else if (indicator === 'methylRed') {
         if (ph <= 4.2) color = "rgba(255, 0, 0, 0.7)";
         else if (ph >= 6.2) color = "rgba(255, 255, 0, 0.7)";
         else {
