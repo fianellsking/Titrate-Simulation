@@ -1,4 +1,3 @@
-// ฟังก์ชันสำหรับจัดการการเปิดไฟล์
 function handleKnowledgeClick(type) {
     let target = "";
 
@@ -22,9 +21,7 @@ function handleKnowledgeClick(type) {
     }
 }
 
-// รอให้หน้าจอโหลดเสร็จก่อนค่อยผูก Event
 document.addEventListener('DOMContentLoaded', () => {
-    // ผูกปุ่มกับฟังก์ชัน (อิงตาม ID ที่เราตั้งใน HTML)
     document.getElementById('btn-graph')?.addEventListener('click', () => handleKnowledgeClick('graph'));
     document.getElementById('btn-slide')?.addEventListener('click', () => handleKnowledgeClick('slide'));
     document.getElementById('btn-quiz')?.addEventListener('click', () => handleKnowledgeClick('quiz'));

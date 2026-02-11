@@ -468,16 +468,13 @@ input, select {
     font-weight: 600;
 }
 
-/* --- ปรับปรุงขวดรูปชมพู่ให้มีมิติ และเพิ่ม Animation เขย่า --- */
 .flask-shape {
-    /* เพิ่มเงาให้ดูมีมิติ */
     background: rgba(240, 248, 255, 0.6);
     box-shadow: inset 0 0 15px rgba(0, 150, 255, 0.1), 0 5px 15px rgba(0,0,0,0.1);
     border: 3px solid #8e9eab;
     transition: all 0.3s ease;
 }
 
-/* Animation การเขย่าขวด */
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-3px) rotate(-1deg); }
