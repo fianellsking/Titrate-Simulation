@@ -96,9 +96,14 @@ function resetLab() {
     document.getElementById('disp-ph').innerText = initialPH.toFixed(2);
     updateColor(initialPH);
     document.getElementById('liquid-burette').style.height = "90%";
+    document.getElementById('showConc').checked = false;
+    document.getElementById('acidConcDisp').className = 'conc-hidden';
 }
 
 document.getElementById('titrate-btn').addEventListener('mousedown', startTitration);
 window.addEventListener('mouseup', stopTitration);
 document.getElementById('reset-btn').addEventListener('click', resetLab);
+document.getElementById('showConc').addEventListener('change', function() {
+    document.getElementById('acidConcDisp').className = this.checked ? '' : 'conc-hidden';
+});
 window.onload = resetLab;

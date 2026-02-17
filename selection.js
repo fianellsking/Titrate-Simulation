@@ -14,6 +14,12 @@ function handleKnowledgeClick(type) {
         case 'key':
             target = "https://drive.google.com/file/d/1Ocso1OKhlBArWI29nfc8CjEfxgNXL6q3/view?usp=sharing";
             break;
+        case 'vidio1':
+            target = "https://www.youtube.com/watch?v=cQpdp7PAV2U";
+            break;
+        case 'vidio2':
+            target = "https://youtu.be/LVUVGUx1q40";
+            break;
     }
 
     if (target) {
@@ -26,4 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('btn-slide')?.addEventListener('click', () => handleKnowledgeClick('slide'));
     document.getElementById('btn-quiz')?.addEventListener('click', () => handleKnowledgeClick('quiz'));
     document.getElementById('btn-key')?.addEventListener('click', () => handleKnowledgeClick('key'));
+    document.getElementById('btn-vidio1')?.addEventListener('click', () => handleKnowledgeClick('vidio1'));
+    document.getElementById('btn-vidio2')?.addEventListener('click', () => handleKnowledgeClick('vidio2'));
 });
