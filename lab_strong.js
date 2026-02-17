@@ -106,23 +106,35 @@ const btn = document.getElementById('titrate-btn');
 let holdTimer;
 let isLongPress = false;
 
+// 1. เพิ่มตัวแปรเก็บ Timer ของ Animation ไว้ด้านบน (ข้างๆ holdTimer)
+let animTimer; 
+
 function handleNormalClick() {
+    console.log("ทำงานแบบคลิกปกติ (Single Drop)");
+    
     const dropParticle = document.getElementById('drop-particle');
     const flaskShape = document.querySelector('.flask-shape');
-    
+
+    // 2. ล้าง Timer เก่าทิ้งทันทีที่คลิกใหม่ (นี่คือหัวใจสำคัญ!)
+    clearTimeout(animTimer);
+
+    // 3. สั่งให้ Animation ทำงาน (ถ้ามันทำงานอยู่แล้ว มันก็จะทำงานต่อไป)
     dropParticle.classList.add('is-dropping');
     flaskShape.classList.add('is-mixing');
 
+    // คำนวณการหยด
     step();
 
-    setTimeout(() => {
-        if (!state.isDropping) { 
+    // 4. ตั้งเวลาปิด Animation ใหม่ทุกครั้งที่คลิก
+    // ถ้าคลิกรัวๆ เวลานี้จะถูกรีเซ็ตเรื่อยๆ ทำให้มันไม่หยุดสั่นจนกว่าจะหยุดคลิกจริงๆ
+    animTimer = setTimeout(() => {
+        // ตรวจเช็คว่าไม่ได้กำลังกดค้างอยู่ (Long Press) ถึงจะสั่งหยุด Animation
+        if (!state.isDropping) {
             dropParticle.classList.remove('is-dropping');
             flaskShape.classList.remove('is-mixing');
         }
-    }, 400);
+    }, 400); // ปรับเวลาให้ยาวขึ้นนิดหน่อย (เช่น 500-600ms) จะช่วยให้รอยต่อลื่นขึ้นครับ
 }
-
 function handleStart(e) {
     // ป้องกันการเปิด Context Menu (เมนูคัดลอก) บนมือถือ
     // และป้องกันการ Zoom
@@ -180,7 +192,3 @@ document.getElementById('showConc').addEventListener('change', function() {
 });
 
 window.onload = resetLab;
-
-
-
-
