@@ -71,6 +71,8 @@ function step() {
     document.getElementById('disp-ph').innerText = ph.toFixed(2);
     updateColor(ph);
     document.getElementById('liquid-burette').style.height = Math.max(0, 90 - (state.vAdded * 1.5)) + "%";
+    document.getElementById('drop-particle').classList.add('is-dropping');
+    document.querySelector('.flask-shape').classList.add('is-mixing');
 }
 
 const startTitration = () => {
@@ -169,5 +171,6 @@ document.getElementById('showConc').addEventListener('change', function() {
 });
 
 window.onload = resetLab;
+
 
 
