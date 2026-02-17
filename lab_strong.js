@@ -71,8 +71,6 @@ function step() {
     document.getElementById('disp-ph').innerText = ph.toFixed(2);
     updateColor(ph);
     document.getElementById('liquid-burette').style.height = Math.max(0, 90 - (state.vAdded * 1.5)) + "%";
-    document.getElementById('drop-particle').classList.add('is-dropping');
-    document.querySelector('.flask-shape').classList.add('is-mixing');
 }
 
 const startTitration = () => {
@@ -109,11 +107,22 @@ let holdTimer;
 let isLongPress = false;
 
 function handleNormalClick() {
-    console.log("ทำงานแบบคลิกปกติ (Single Drop)");
+    const dropParticle = document.getElementById('drop-particle');
+    const flaskShape = document.querySelector('.flask-shape');
+    
+    dropParticle.classList.add('is-dropping');
+    flaskShape.classList.add('is-mixing');
+
     step();
+
+    setTimeout(() => {
+        if (!state.isDropping) { 
+            dropParticle.classList.remove('is-dropping');
+            flaskShape.classList.remove('is-mixing');
+        }
+    }, 400);
 }
 
-// ฟังก์ชันเริ่มกด (ใช้ร่วมกันทั้ง Mouse และ Touch)
 function handleStart(e) {
     // ป้องกันการเปิด Context Menu (เมนูคัดลอก) บนมือถือ
     // และป้องกันการ Zoom
@@ -171,6 +180,7 @@ document.getElementById('showConc').addEventListener('change', function() {
 });
 
 window.onload = resetLab;
+
 
 
 
