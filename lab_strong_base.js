@@ -148,8 +148,52 @@ function resetLab() {
     document.getElementById('acidConcDisp').className = 'conc-hidden';
 }
 
-document.getElementById('titrate-btn').addEventListener('mousedown', startTitration);
-window.addEventListener('mouseup', stopTitration);
+const btn = document.getElementById('titrate-btn');
+let holdTimer;
+let isLongPress = false;
+
+// ฟังก์ชันสำหรับการคลิก 1 ครั้ง (หยดแค่ 1 step)
+function handleNormalClick() {
+    console.log("ทำงานแบบคลิกปกติ (Single Drop)");
+    step(); // เรียกใช้ step แค่ครั้งเดียว
+}
+
+btn.addEventListener('mousedown', () => {
+    isLongPress = false;
+    
+    // ตั้งเวลา 500ms หากกดค้างถึงจุดนี้ จะเริ่มหยดต่อเนื่อง
+    holdTimer = setTimeout(() => {
+        isLongPress = true;
+        startTitration(); 
+        console.log("เริ่มการทำงานแบบคลิกค้าง (Continuous Titration)");
+    }, 500);
+});
+
+btn.addEventListener('mouseup', () => {
+    clearTimeout(holdTimer); // หยุดการนับเวลา 500ms
+    if (isLongPress) {
+        stopTitration(); // ถ้าเคยทำงานแบบกดค้างไว้ เมื่อปล่อยเมาส์ให้หยุดหยด
+    }
+});
+
+btn.addEventListener('mouseleave', () => {
+    clearTimeout(holdTimer);
+    if (isLongPress) {
+        stopTitration(); // ถ้าลากเมาส์ออกจากปุ่มขณะกดค้าง ให้หยุดหยดเช่นกัน
+    }
+});
+
+btn.addEventListener('click', (e) => {
+    // ถ้าเป็นการกดค้าง (Long Press) ไปแล้ว ไม่ต้องรันโค้ดคลิกปกติ
+    if (isLongPress) {
+        e.preventDefault();
+        return;
+    }
+    
+    // ถ้าเป็นการคลิกสั้นๆ ให้หยดแค่ 1 ครั้ง
+    handleNormalClick(); 
+});
+
 document.getElementById('reset-btn').addEventListener('click', resetLab);
 document.getElementById('showConc').addEventListener('change', function() {
     document.getElementById('acidConcDisp').className = this.checked ? 'conc-visible' : 'conc-hidden';

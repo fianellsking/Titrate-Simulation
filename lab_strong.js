@@ -100,8 +100,46 @@ function resetLab() {
     document.getElementById('acidConcDisp').className = 'conc-hidden';
 }
 
-document.getElementById('titrate-btn').addEventListener('mousedown', startTitration);
-window.addEventListener('mouseup', stopTitration);
+const btn = document.getElementById('titrate-btn');
+let holdTimer;
+let isLongPress = false;
+
+function handleNormalClick() {
+    console.log("ทำงานแบบคลิกปกติ (Single Drop)");
+    step();
+}
+
+btn.addEventListener('mousedown', () => {
+    isLongPress = false;
+    holdTimer = setTimeout(() => {
+        isLongPress = true;
+        startTitration(); 
+        console.log("เริ่มการทำงานแบบคลิกค้าง (Continuous Titration)");
+    }, 500);
+});
+
+btn.addEventListener('mouseup', () => {
+    clearTimeout(holdTimer);
+    if (isLongPress) {
+        stopTitration();
+    }
+});
+
+btn.addEventListener('mouseleave', () => {
+    clearTimeout(holdTimer);
+    if (isLongPress) {
+        stopTitration();
+    }
+});
+
+btn.addEventListener('click', (e) => {
+    if (isLongPress) {
+        e.preventDefault();
+        return;
+    }
+    handleNormalClick(); 
+});
+
 document.getElementById('reset-btn').addEventListener('click', resetLab);
 document.getElementById('showConc').addEventListener('change', function() {
     document.getElementById('acidConcDisp').className = this.checked ? '' : 'conc-hidden';
