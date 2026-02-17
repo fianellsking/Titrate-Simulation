@@ -109,7 +109,7 @@ function handleNormalClick() {
     step();
 }
 
-btn.addEventListener('mousedown', 'touchstart',() => {
+btn.addEventListener('mousedown'||'touchstart',() => {
     isLongPress = false;
     holdTimer = setTimeout(() => {
         isLongPress = true;
@@ -118,7 +118,7 @@ btn.addEventListener('mousedown', 'touchstart',() => {
     }, 500);
 });
 
-btn.addEventListener('mouseup', 'touchend',() => {
+btn.addEventListener('mouseup'||'touchend',() => {
     clearTimeout(holdTimer);
     if (isLongPress) {
         stopTitration();
@@ -146,3 +146,4 @@ document.getElementById('showConc').addEventListener('change', function() {
 });
 
 window.onload = resetLab;
+
