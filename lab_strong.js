@@ -109,7 +109,7 @@ function handleNormalClick() {
     step();
 }
 
-btn.addEventListener('mousedown', () => {
+btn.addEventListener('mousedown', 'touchstart',() => {
     isLongPress = false;
     holdTimer = setTimeout(() => {
         isLongPress = true;
@@ -118,7 +118,7 @@ btn.addEventListener('mousedown', () => {
     }, 500);
 });
 
-btn.addEventListener('mouseup', () => {
+btn.addEventListener('mouseup', 'touchend',() => {
     clearTimeout(holdTimer);
     if (isLongPress) {
         stopTitration();
@@ -144,4 +144,5 @@ document.getElementById('reset-btn').addEventListener('click', resetLab);
 document.getElementById('showConc').addEventListener('change', function() {
     document.getElementById('acidConcDisp').className = this.checked ? '' : 'conc-hidden';
 });
+
 window.onload = resetLab;
