@@ -148,55 +148,72 @@ function resetLab() {
     document.getElementById('acidConcDisp').className = 'conc-hidden';
 }
 
+/* --- แก้ไขเฉพาะส่วน Event Listeners ด้านล่าง --- */
+
 const btn = document.getElementById('titrate-btn');
 let holdTimer;
 let isLongPress = false;
 
-// ฟังก์ชันสำหรับการคลิก 1 ครั้ง (หยดแค่ 1 step)
 function handleNormalClick() {
     console.log("ทำงานแบบคลิกปกติ (Single Drop)");
-    step(); // เรียกใช้ step แค่ครั้งเดียว
+    step();
 }
 
-btn.addEventListener('mousedown', () => {
+// ฟังก์ชันเริ่มกด (ใช้ร่วมกันทั้ง Mouse และ Touch)
+function handleStart(e) {
+    // ป้องกันการเปิด Context Menu (เมนูคัดลอก) บนมือถือ
+    // และป้องกันการ Zoom
+    if (e.type === 'touchstart') {
+        // e.preventDefault(); // ถ้าเอาคอมเมนต์ออกจะบล็อกทุกอย่าง แต่แนะนำใช้ CSS ด้านบนจะดีกว่า
+    }
+
     isLongPress = false;
-    
-    // ตั้งเวลา 500ms หากกดค้างถึงจุดนี้ จะเริ่มหยดต่อเนื่อง
     holdTimer = setTimeout(() => {
         isLongPress = true;
         startTitration(); 
         console.log("เริ่มการทำงานแบบคลิกค้าง (Continuous Titration)");
     }, 500);
-});
+}
 
-btn.addEventListener('mouseup', () => {
-    clearTimeout(holdTimer); // หยุดการนับเวลา 500ms
-    if (isLongPress) {
-        stopTitration(); // ถ้าเคยทำงานแบบกดค้างไว้ เมื่อปล่อยเมาส์ให้หยุดหยด
-    }
-});
-
-btn.addEventListener('mouseleave', () => {
+// ฟังก์ชันปล่อยมือ
+function handleEnd() {
     clearTimeout(holdTimer);
     if (isLongPress) {
-        stopTitration(); // ถ้าลากเมาส์ออกจากปุ่มขณะกดค้าง ให้หยุดหยดเช่นกัน
+        stopTitration();
     }
+}
+
+// --- ลงทะเบียน Event แยกกันอย่างถูกต้อง ---
+
+// สำหรับ PC
+btn.addEventListener('mousedown', handleStart);
+btn.addEventListener('mouseup', handleEnd);
+btn.addEventListener('mouseleave', handleEnd);
+
+// สำหรับ Mobile
+btn.addEventListener('touchstart', handleStart, { passive: true });
+btn.addEventListener('touchend', handleEnd);
+btn.addEventListener('touchcancel', handleEnd); // กรณีมีสายเข้าหรือสลับหน้าจอขณะกดค้าง
+
+// บล็อก Context Menu เฉพาะที่ตัวปุ่ม
+btn.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
 });
 
+// จัดการการคลิก
 btn.addEventListener('click', (e) => {
-    // ถ้าเป็นการกดค้าง (Long Press) ไปแล้ว ไม่ต้องรันโค้ดคลิกปกติ
     if (isLongPress) {
         e.preventDefault();
+        e.stopPropagation();
         return;
     }
-    
-    // ถ้าเป็นการคลิกสั้นๆ ให้หยดแค่ 1 ครั้ง
     handleNormalClick(); 
 });
 
+/* --- ส่วนอื่นๆ คงเดิม --- */
 document.getElementById('reset-btn').addEventListener('click', resetLab);
 document.getElementById('showConc').addEventListener('change', function() {
-    document.getElementById('acidConcDisp').className = this.checked ? 'conc-visible' : 'conc-hidden';
+    document.getElementById('acidConcDisp').className = this.checked ? '' : 'conc-hidden';
 });
 
 window.onload = resetLab;
